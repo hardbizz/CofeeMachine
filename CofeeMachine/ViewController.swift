@@ -12,9 +12,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+      
+        let myMachine = CofeeMachine()
+       // print(myMachine.addWater(500))
+        myMachine.makeLatte()
+        myMachine.addWater(500)
+        myMachine.addMilk(150)
+        myMachine.addCoffee(100)
+        myMachine.makeLatte()
+        myMachine.makeEspreso()
+
     }
 
+    
 
 }
 
