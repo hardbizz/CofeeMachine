@@ -9,7 +9,16 @@
 import UIKit
 
 class CofeeMachine: NSObject {
-   // var powerButton = false
+    override var description: String {
+     var result = ""
+        result = super.description
+        result+="\nВас привествует кофемашина! Сейчас в резервуарах\n"
+        result+="\(waterAmount) мл воды\n"
+        result+="\(coffeeAmount) гр кофе\n"
+        result+="\(milkAmount) мл молока"
+    return result
+        
+    }
     private var waterAmount = 0
     private var coffeeAmount = 0
     private var milkAmount = 0
@@ -36,6 +45,19 @@ class CofeeMachine: NSObject {
         tray = 0
         print("Лоток очищен! Можно начинать готовить напиток")
     }
+    func check(_ string: String) {
+        switch string {
+        case "water" :
+            print("Сейчас в кофемашине \(waterAmount) мл воды")
+        case "coffee":
+            print("Сейчас в кофемашине \(coffeeAmount) гр кофе")
+        case "milk" :
+            print("Сейчас в кофемашине \(milkAmount) мл молока")
+        default:
+            print("для проверки введите water, coffee или milk")
+            
+        }
+    }
     
     private func preparing() {
         print("""
@@ -49,13 +71,7 @@ class CofeeMachine: NSObject {
 """
 )
     }
-    
-// //   func enabled() {
-//        if powerButton == false {
-//            powerButton = true
-//        }
-    
-    
+
     func makeEspreso() {
         print("Приветствую, хозяин! Вы заказали Эспрессо!")
         if waterAmount < 50 {

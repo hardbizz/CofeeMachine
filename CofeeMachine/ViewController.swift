@@ -21,6 +21,8 @@ class ViewController: UIViewController {
         myMachine.addCoffee(100)
         myMachine.makeLatte()
         myMachine.makeEspreso()
+        myMachine.check("milk")
+        print(myMachine)
 
     }
 
