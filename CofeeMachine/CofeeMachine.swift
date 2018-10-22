@@ -8,6 +8,13 @@
 
 import UIKit
 
+var waterAmount = 0
+var coffeeAmount = 0
+var milkAmount = 0
+var tray = 0
+var pr1 = "Кофемашина выключена"
+var state = false
+
 class CofeeMachine: NSObject {
     override var description: String {
      var result = ""
@@ -19,146 +26,148 @@ class CofeeMachine: NSObject {
     return result
         
     }
-    private var waterAmount = 0
-    private var coffeeAmount = 0
-    private var milkAmount = 0
-    private var tray = 0
-    func addWater(_ amount: Int) {
-        if amount > 0 {
-        waterAmount+=amount
-        print("Вы долили \(amount) мл воды. Сейчас в резервуаре \(waterAmount) мл воды ")
-        }
+//    private var waterAmount = 0
+//    private var coffeeAmount = 0
+//    private var milkAmount = 0
+//    private var tray = 0
+    
+    
+    func addWater() {
+        
+    waterAmount+=200
+    pr1 = "Вы долили 200 мл воды.\nСейчас в резервуаре \(waterAmount) мл воды "
+        
     }
-    func addCoffee(_ amount: Int) {
-        if amount > 0 {
-        coffeeAmount+=amount
-        print("Вы досыпали \(amount) мг кофе. Сейчас в резервуаре \(coffeeAmount) мг кофе ")
-        }
-    }
-    func addMilk(_ amount: Int) {
-        if amount > 0 {
-        milkAmount+=amount
-        print("Вы долили \(amount) мл молока. Сейчас в резервуаре \(milkAmount) мл молока ")
-        }
-    }
-    func clearTray(){
-        tray = 0
-        print("Лоток очищен! Можно начинать готовить напиток")
-    }
-    func check(_ string: String) {
-        switch string {
-        case "water" :
-            print("Сейчас в кофемашине \(waterAmount) мл воды")
-        case "coffee":
-            print("Сейчас в кофемашине \(coffeeAmount) гр кофе")
-        case "milk" :
-            print("Сейчас в кофемашине \(milkAmount) мл молока")
-        default:
-            print("для проверки введите water, coffee или milk")
-            
+    func addCoffee() {
+        if state {
+        coffeeAmount+=50
+       pr1 = "Вы досыпали 50 мг кофе.\nСейчас в резервуаре \(coffeeAmount) мг кофе "
         }
     }
     
-    private func preparing() {
-        print("""
------------------------------------
------------------------------------
------------ Ваш -------------------
---------- напиток -----------------
--------- готовится ----------------
------------------------------------
------------------------------------
-"""
-)
+    func addMilk() {
+        
+        milkAmount+=100
+        pr1 = "Вы долили 100 мл молока.\nСейчас в резервуаре \(milkAmount) мл молока "
+        
+    }
+    
+    func clearTray() {
+        
+        if tray == 0 {
+            pr1 = "Лоток для отходов не нуждается в очистке! "
+        } else {
+        
+            pr1 = "Лоток очищен! Можно начинать готовить напиток"}
+        tray = 0
+    
+    }
+    
+    func check() {
+        
+        
+        print("print foo after check \(state)")
+        pr1 = "                   Сейчас в резервуарах \n\n     Вода          \(waterAmount) мл\n     Кофе         \(coffeeAmount) мг\n     Молоко     \(milkAmount) мл"
+        
+    }
+    
+    func power() {
+        state = !state
+        print(state)
     }
 
     func makeEspreso() {
-        print("Приветствую, хозяин! Вы заказали Эспрессо!")
+        print("enter espreso \(state)")
+        
         if waterAmount < 50 {
-            print ("Недостаточно воды, долейте!")
+            pr1 = "Недостаточно воды, долейте!"
         }
         if coffeeAmount < 10 {
-            print ("Недостаточно кофе, добавьте!")
+            pr1 = "Недостаточно кофе, добавьте!"
         }
         if tray >= 50 {
-            print("Лоток для отходов полный, почистите, пожалуйста для продолжения!")
+            pr1 = "Лоток для отходов полный, очистите, пожалуйста, для продолжения!"
         }
-        if waterAmount > 50 && coffeeAmount > 10 && tray <= 45{
+        if waterAmount >= 50 && coffeeAmount >= 10 && tray <= 45{
             waterAmount-=50
             coffeeAmount-=10
-            tray+=5
-            preparing()
-            print("Ваш Эспрессо готов!")
+            tray+=10
+            pr1 = "Ваш Эспрессо готов!"
         }
+        
     }
     
     func makeAmericano() {
-        print("Приветствую, хозяин! Вы заказали  Американо!")
+        
         if waterAmount < 100 {
-            print ("Недостаточно воды, долейте!")
+            pr1 = "Недостаточно воды, долейте!"
         }
         if coffeeAmount < 10 {
-            print ("Недостаточно кофе, добавьте!")
+            pr1 = "Недостаточно кофе, добавьте!"
         }
         if tray >= 50 {
-            print("Лоток для отходов полный, почистите, пожалуйста для продолжения!")
+            pr1 = "Лоток для отходов полный, очистите, пожалуйста, для продолжения!"
         }
-        if waterAmount > 100 && coffeeAmount > 10 && tray <= 45{
+        if waterAmount >= 100 && coffeeAmount >= 10 && tray <= 45{
             waterAmount-=100
             coffeeAmount-=10
-            tray+=5
-            preparing()
-            print("Ваш Американо готов!")
+            tray+=10
+          
+            pr1 = "Ваш Американо готов!"
         }
+        
     }
     
     func makeCappucino() {
-        print("Приветствую, хозяин! Вы заказали  Капучино!")
+        
+        print("enter capuccino before if \(state)")
+        
         if waterAmount < 200 {
-            print ("Недостаточно воды, долейте!")
+            pr1 = "Недостаточно воды, долейте!"
         }
         if coffeeAmount < 20 {
-            print ("Недостаточно кофе, добавьте!")
+            pr1 = "Недостаточно кофе, добавьте!"
         }
         if milkAmount < 50 {
-            print ("Недостаточно молока, долейте!")
+            pr1 = "Недостаточно молока, долейте!"
         }
         if tray >= 50 {
-            print("Лоток для отходов полный, очистите, пожалуйста, для продолжения!")
+            pr1 = "Лоток для отходов заполнился, очистите его, пожалуйста, для продолжения!"
         }
-        if waterAmount > 200 && coffeeAmount > 20  && milkAmount > 50 && tray <= 45 {
+        if waterAmount >= 200 && coffeeAmount >= 20  && milkAmount >= 50 && tray <= 45 {
             waterAmount-=200
             coffeeAmount-=20
-            tray+=10
+            tray+=20
             milkAmount-=50
-            preparing()
-            print("Ваш Капучино готов!")
+           
+            pr1 = "Ваш Капучино готов!"
         }
+        
     }
     
     func makeLatte() {
-        print("Приветствую, хозяин! Вы заказали  Латте!")
+      
         if waterAmount < 200 {
-            print ("Недостаточно воды, долейте!")
+            pr1 = "Недостаточно воды, долейте!"
         }
         if coffeeAmount < 20 {
-            print ("Недостаточно кофе, добавьте!")
+            pr1 = "Недостаточно кофе, добавьте!"
         }
         if milkAmount < 100 {
-            print ("Недостаточно молока, долейте!")
+            pr1 = "Недостаточно молока, долейте!"
         }
         if tray >= 50 {
-            print("Лоток для отходов полный, очистите, пожалуйста, для продолжения!")
+            pr1 = "Лоток для отходов полный, очистите, пожалуйста, для продолжения!"
         }
-        if waterAmount > 200 && coffeeAmount > 20  && milkAmount > 100 && tray <= 45 {
+        if waterAmount >= 200 && coffeeAmount >= 20  && milkAmount >= 100 && tray <= 45 {
             waterAmount-=200
             coffeeAmount-=20
-            tray+=10
+            tray+=20
             milkAmount-=100
-            preparing()
-            print("Ваш Латте готов!")
+            pr1 = "Ваш Латте готов!"
         }
     }
 }
+
     
 
